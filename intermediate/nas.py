@@ -48,3 +48,68 @@ df
 # inv_size_mapping
 # df["size"] = df["size"].map(inv_size_mapping)
 # df
+
+
+
+# Nominal data - use 0 cause no order
+
+import numpy as np
+class_mapping = {label : idx for idx, label in
+                    enumerate(np.unique(df["classlabel"]))}
+
+class_mapping
+
+
+# USe mapping dictionary to trasnform
+
+df["classlabel"] = df["classlabel"].map(class_mapping)
+df
+
+#reverse this whay
+
+
+# inv_class_mapping = {v: k for k, v in class_mapping.items()}
+# df["classlabel"] = df["classlabel"].map(inv_class_mapping)
+#
+# df
+
+
+from sklearn.preprocessing import LabelEncoder
+class_le = LabelEncoder()
+# df["classlabel"] = class_le.fit_transform(df["classlabel"].values)
+# y
+y = class_le.fit_transform(df["classlabel"].values)
+y
+# shortcut for calling fit and transform separately
+
+class_le.inverse_transform(y)
+
+
+
+### TRANSFORM COLOR TOO
+
+X = df[["color", "size", "price"]].values
+X
+color_le = LabelEncoder()
+X[:, 0] = color_le.fit_transform(X[:, 0])
+X
+
+
+
+### USING DUMMIES
+
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(categorical_features = [0])
+ohe.fit_transform(X).toarray()
+
+
+# Better - use get_dummies
+
+pd.get_dummies(df[["price", "color", "size"]])
+
+
+
+
+
+
+###########
