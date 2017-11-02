@@ -220,7 +220,7 @@ class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
 attr_adder = CombinedAttributesAdder(add_bedrooms_per_room = False)
 attr_adder
 housing_extra_attribs = attr_adder.transform(housing.values)
-housing_extra_attribs
+housing_extra_attribs.info()
 
 
 
